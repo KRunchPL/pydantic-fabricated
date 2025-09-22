@@ -1,6 +1,4 @@
-from .__main__ import main
+from .metaclass import PydanticFabricated
 
 
-__all__ = [
-    'main',
-]
+__all__ = ['PydanticFabricated']
