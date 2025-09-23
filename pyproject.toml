@@ -1,7 +1,7 @@
 [project]
 name = "pydantic-fabricated"
 description = "Metaclass for fabricating subclasses from dictionaries inside Pydantic models."
-version = "1.0.0"
+version = "1.0.1"
 authors = [
     { name = "KRunchPL", email = "krunchfrompoland@gmail.com" },
 ]

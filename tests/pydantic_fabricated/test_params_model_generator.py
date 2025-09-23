@@ -1,14 +1,55 @@
 from typing import Annotated, Any
 
+import pytest
 from annotated_types import Ge, Le, MinLen
 from pydantic import BaseModel, Field
 
 from pydantic_fabricated._params_model_generator import create_constructor_params_model
 
 
+def test_no_constructor():
+    class SimpleClass: ...
+
+    # Default constructor has a parameter without annotation (*args, **kwargs)
+    with pytest.raises(ValueError, match='missing a type annotation'):
+        create_constructor_params_model(SimpleClass)
+
+
+def test_missing_annotation():
+    class SimpleClass:
+        def __init__(self, name): ...
+
+    with pytest.raises(ValueError, match='missing a type annotation'):
+        create_constructor_params_model(SimpleClass)
+
+
+def test_var_args():
+    class SimpleClass:
+        def __init__(self, *args: str): ...
+
+    with pytest.raises(ValueError, match='variadic parameter'):
+        create_constructor_params_model(SimpleClass)
+
+
+def test_var_kwargs():
+    class SimpleClass:
+        def __init__(self, **kwargs: str): ...
+
+    with pytest.raises(ValueError, match='variadic parameter'):
+        create_constructor_params_model(SimpleClass)
+
+
+def test_positional_only():
+    class SimpleClass:
+        def __init__(self, kwargs: str, /): ...
+
+    with pytest.raises(ValueError, match='positional-only parameter'):
+        create_constructor_params_model(SimpleClass)
+
+
 def test_simple_class_params():
     class SimpleClass:
-        def __init__(self, name: str, age: int): ...
+        def __init__(self, name: str, *, age: int): ...
 
     params_model = create_constructor_params_model(SimpleClass)
 
