@@ -1,4 +1,4 @@
-### Configuration created for ruff==0.13.1
+### Configuration created for ruff==0.14.0
 
 # A list of builtins to treat as defined references, in addition to the
 # system builtins.
@@ -96,6 +96,7 @@ force-exclude = false
 include = [
     "*.py",
     "*.pyi",
+    "*.pyw",
     "*.ipynb",
     "**/pyproject.toml",
 ]
@@ -184,8 +185,8 @@ src = [
 # The minimum Python version to target, e.g., when considering automatic
 # code upgrades, like rewriting type annotations. Ruff will not propose
 # changes using features that are not available in the given version.
-# For example, to represent supporting Python >=3.10 or ==3.10
-# specify target-version = "py310".
+# For example, to represent supporting Python >=3.11 or ==3.11
+# specify target-version = "py311".
 # If you're already using a pyproject.toml file, we recommend
 # project.requires-python instead, as it's based on Python packaging
 # standards, and will be respected by other tools. For example, Ruff
@@ -207,7 +208,7 @@ src = [
 # 3.10+. As such, Ruff will often recommend newer features in a stub
 # file than it would for an equivalent runtime file with the same target
 # version.
-target-version = "py313"
+target-version = "py314"
 # Enable application of unsafe fixes.
 # If excluded, a hint will be displayed when unsafe fixes are available.
 # If set to false, the hint will be hidden.
@@ -958,6 +959,8 @@ ignore-variadic-names = false
 
 [lint.isort]
 # Sort imports taking into account case sensitivity.
+# Note that the order-by-type setting will
+# take precedence over this one when enabled.
 case-sensitive = false
 # An override list of tokens to always recognize as a Class for
 # order-by-type regardless of casing.
@@ -1079,6 +1082,8 @@ no-lines-before = []
 no-sections = false
 # Order imports by type, which is determined by case, in addition to
 # alphabetically.
+# Note that this option takes precedence over the
+# case-sensitive setting when enabled.
 order-by-type = false
 # Whether to place "closer" imports (fewer . characters, most local)
 # before "further" imports (more . characters, least local), or vice
