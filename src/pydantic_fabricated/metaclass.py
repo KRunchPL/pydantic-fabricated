@@ -14,6 +14,11 @@ from pydantic_fabricated._union_generator import create_discriminated_union
 class PydanticFabricated(type):
     """
     Metaclass that generates Pydantic models for constructor parameters and class definitions.
+
+    :param name: name of the class
+    :param bases: base classes
+    :param namespace: namespace of the created class
+    :param kwargs: additional kwargs passed to created class
     """
 
     def __init__(
@@ -96,9 +101,7 @@ class PydanticFabricated(type):
                             lambda v: json.loads(v) if isinstance(v, str) else v,
                         ),
                         inner_schema,
-                        pydantic_core.core_schema.no_info_plain_validator_function(
-                            lambda v: cls.fabricate_from_model(v),
-                        ),
+                        pydantic_core.core_schema.no_info_plain_validator_function(cls.fabricate_from_model),
                     ],
                 ),
             ],

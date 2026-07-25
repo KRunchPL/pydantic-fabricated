@@ -1,10 +1,8 @@
 [project]
 name = "pydantic-fabricated"
+dynamic = ["version"]
 description = "Metaclass for fabricating subclasses from dictionaries inside Pydantic models."
-version = "1.0.1"
-authors = [
-    { name = "KRunchPL", email = "krunchfrompoland@gmail.com" },
-]
+authors = [{ name = "KRunchPL", email = "krunchfrompoland@gmail.com" }]
 license = "Apache-2.0"
 readme = "README.md"
 requires-python = ">=3.13,<4.0"
@@ -12,19 +10,9 @@ dependencies = [
     "pydantic>=2.11.9,<3.0.0",
 ]
 
-[project.urls]
-homepage = "https://github.com/KRunchPL/pydantic-fabricated"
-repository = "https://github.com/KRunchPL/pydantic-fabricated"
-documentation = "https://github.com/KRunchPL/pydantic-fabricated"
-
-[tool.hatch.build.targets.wheel]
-packages = [
-    "src/pydantic_fabricated",
-]
-
 [dependency-groups]
 dev = [
-    "darglint",
+    "pydoclint",
     "flake8",
     "mypy",
     "pytest",
@@ -34,6 +22,22 @@ dev = [
     "pydantic-settings",
 ]
 
+[project.urls]
+homepage = "https://github.com/KRunchPL/pydantic-fabricated"
+repository = "https://github.com/KRunchPL/pydantic-fabricated"
+documentation = "https://github.com/KRunchPL/pydantic-fabricated"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pydantic_fabricated"]
+
+[tool.hatch.version]
+scheme = "semver"
+path = "version.txt"
+pattern = "(?P<version>.*)"
+
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-semver"]
 build-backend = "hatchling.build"
+
+[tool.uv]
+system-certs = true
