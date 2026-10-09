@@ -14,7 +14,7 @@ def create_class_definition_model(
     :param constructor_params_model: The Pydantic model representing the constructor parameters
     :return: A Pydantic BaseModel subclass with a single field 'constructor_params'
     """
-    return create_model(
+    return create_model(  # type: ignore [call-overload, no-any-return]
         f'{class_name}DefinitionModel',
         __base__=constructor_params_model,
         type=Literal[class_name],
